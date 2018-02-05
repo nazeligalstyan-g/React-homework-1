@@ -1,0 +1,228 @@
+Homework 1
+Setup
+To run tests and linter locally refer to setup guide.
+
+Submit
+To submit your homework follow this submition guide.
+
+Exercises
+Try to avoid using loops with for and while. Use Array methods like .filter, .reduce, .map and others. Use ECMAScript 2015 syntax to make code more readable. See tests to understand the exercise better.
+
+Exercises marked with * are most challenging.
+
+Extra
+These extra exercises will help you better to understand how JavaScript .filter and .reduce methods are working. I encourage you to try to solve them first and then go to the next exercises.
+
+Extra 1: filter
+Write a function filter(array, callback) which calls a provided callback function once for each element in an array, and constructs a new array of all the values for which callback returns a value that coerces to true Use regular for or while for iterating and don't use native .filter method)
+
+callback is called with three arguments:
+
+the value of the element
+the index of the element
+the Array object being traversed
+Example:
+
+function isBigEnough(value, index, array) {
+  return value >= 10;
+}
+
+const filtered = filter([12, 5, 8, 130, 44], isBigEnough);
+// filtered is [12, 130, 44]
+*Extra 2: reduce
+Write a function reduce(array, callback, initialValue) which calls a callback against an accumulator and each element in the array (from left to right) to reduce it to a single value.
+
+Parameters:
+
+callback - Function to execute on each element in the array, taking four arguments:
+accumulator - The accumulator accumulates the callback's return values; it is the accumulated value previously returned in the last invocation of the callback, or initialValue, if supplied (see below).
+currentValue - The current element being processed in the array.
+currentIndexOptional - The index of the current element being processed in the array. Starts at index 0, if an initialValue is provided, and at index 1 otherwise.
+arrayOptional - The array reduce() was called upon.
+initialValueOptional - Value to use as the first argument to the first call of the callback. If no initial value is supplied, the first element in the array will be used. Calling reduce() on an empty array without an initial value is an error.
+You can read more detailed description of what it should do in the MDN docs for .reduce
+
+Use regular for or while for iterating and don't use native array methods.
+
+Example:
+
+const sum = reduce([-1, 0, 1, 2, 3, 4], (acc, el) => acc + el, 0);
+// sum is 9
+Exercise 1
+Given two objects. Write a function shallowCompare(a, b) that performs shallow compare between object a and b. shallowCompare must iterate on the keys of the objects being compared and returning true when the values of a key in each object are not strictly equal.
+
+const a = { a: '1'};
+const b = { a: '1'};
+shallowCompare(a, b); // true
+
+const a = { a: '1' };
+const b = { a: '1', b: '2' };
+shallowCompare(a, b); // false
+
+const a = {};
+const b = {};
+shallowCompare(a, b); // true
+
+const a = { prop: { a: 1 } };
+const b = { prop: { a: 1} };
+shallowCompare(a, b); // false
+*Exercise 2
+Given an object. Write a function that creates a deep copy of it. Deep copy is a copy so that every primitive, every object, every array and string are copied not by its reference rather than data.
+
+const a = { a: '1', b: { a: 2, c: [1, 2, 3] }, c: [{a: 1}, 2]};
+const b = deepCopy(a);
+
+a.b.a = 123;
+a.b.c[0] = 3;
+a.c[0].a = 2;
+console.log(b.b.a !== 123);
+console.log(b.b.c[0] === 1); // true
+console.log(b.c[0].a === 1); // true
+Exercise 3
+Create a function multiplyNumeric(obj, n) that return a new object where all numeric properties of obj is multiplied by n.
+
+// before the call
+const menu = {
+  width: 200,
+  height: 300,
+  title: "My menu"
+};
+
+const expensiveMenu = multiplyNumeric(menu, 2);
+
+// after the call
+expensiveMenu = {
+  width: 400,
+  height: 600,
+  title: "My menu"
+};
+Exercise 4
+Write the function getAverageAge(users) that gets an array of objects with property age and gets the average.
+
+The formula for the average is (age1 + age2 + ... + ageN) / N.
+
+For instance:
+
+const john = { name: "John", age: 25 };
+const pete = { name: "Pete", age: 30 };
+const mary = { name: "Mary", age: 29 };
+
+const arr = [john, pete, mary];
+
+console.log(getAverageAge(arr)); // (25 + 30 + 29) / 3 = 28
+Exercise 5
+Write a function unique(arr) which will return a new array of unique elements of the given array.
+
+const arr = [3, 12, 3, 4, 10];
+const newArr = unique(arr); // newArr = [3, 12, 4, 10];
+
+
+const strings = ["Hare", "Krishna", "Hare", "Krishna",
+  "Krishna", "Krishna", "Hare", "Hare", ":-O"
+];
+
+console.log(unique(strings)); // Hare, Krishna, :-O
+Try to write solution that works in O(n) linear time (it mustn't contain nested loops)
+
+Exercise 6
+Write a function countWords(str) which will count the number of unique words for the given str. str is a string of words joined by spaces.
+
+For instance:
+
+const str = 'Hello hello I am very happy to see you It was a long time since since I haven\'t see you';
+const counts = countWords(str);
+
+// counts is the following object
+{
+  a: 1,
+  am: 1,
+  happy: 1,
+  'haven\'t': 1,
+  hello: 2,
+  i: 2,
+  it: 1,
+  long: 1,
+  see: 2,
+  since: 2,
+  time: 1,
+  to: 1,
+  very: 1,
+  was: 1,
+  you: 2,
+}
+Hint use str.toLowerCase() to convert all characters to the lower case.
+
+Exercise 7
+Write the function camelize(str) that changes dash-separated words like "my-short-string" into camel-cased "myShortString".
+
+That is: removes all dashes, each word after dash becomes uppercased.
+
+camelize("background-color") === 'backgroundColor';
+camelize("list-style-image") === 'listStyleImage';
+camelize("-webkit-transition") === 'WebkitTransition';
+Hint use str.split, str.join and array.map methods.
+
+Exercise 8
+Create an object calculator with three methods:
+
+read(x, y) saves two values as object properties.
+sum() returns the sum of saved values.
+mul() multiplies saved values and returns the result.
+const calculator = {
+  // ... your code ...
+};
+
+calculator.read(10, 2);
+console.log(calculator.sum()); // prints 12
+console.log(calculator.mul()); // prints 20
+Exercise 9
+Create an object factory createQueue which returns queue which implements Queue abstract data type:
+
+enqueue(el) add elements to the beginning of the queue
+dequeue() removes and return element from the end of the queue
+length() method return a length of the queue
+peek() return the front element of the queue
+function createQueue() {
+   // your code
+}
+
+const queue = createQueue();
+
+queue.enqueue(1);
+queue.enqueue(5);
+queue.enqueue(6);
+
+console.log(queue.dequeue()); // 1
+console.log(queue.length()); // 2
+console.log(queue.peek()); // 5
+Exercise 10
+We have a built-in method arr.filter(f) for arrays. It filters all elements through the function f. If it returns true, then that element is returned in the resulting array.
+
+Make a set of “ready to use” filters:
+
+inBetween(a, b) – between a and b or equal to them (inclusively).
+inArray([...]) – in the given array.
+The usage must be like this:
+
+arr.filter(inBetween(3,6)) – selects only values between 3 and 6.
+arr.filter(inArray([1,2,3])) – selects only elements matching with one of the members of [1,2,3].
+/* .. your code for inBetween and inArray */
+const arr = [1, 2, 3, 4, 5, 6, 7];
+
+console.log(arr.filter(inBetween(3, 6))); // 3,4,5,6
+
+console.log(arr.filter(inArray([1, 2, 10]))); // 1,2
+Hint: use .includes method for checking whether the element is included in the array.
+
+Exercise 11
+We’ve got an array of objects to sort:
+
+const users = [
+  { name: "John", age: 20, surname: "Johnson" },
+  { name: "Pete", age: 18, surname: "Peterson" },
+  { name: "Ann", age: 19, surname: "Hathaway" }
+];
+Write the function byField(field) that can be used for sorting an array of object using field.
+
+users.sort(byField('name'));
+users.sort(byField('age'));
